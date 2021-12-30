@@ -1,0 +1,30 @@
+# dependencies
+/node_modules
+
+# testing
+/coverage
+/tests/**/next-env.d.ts
+/tests/**/tsconfig.json
+/tests/integration/src/pages/*
+!/tests/integration/src/pages/ping.ts
+!/tests/integration/src/pages/ping2.ts
+
+# next.js
+.next/
+/out/
+/src/pages/*
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# vercel
+.vercel
