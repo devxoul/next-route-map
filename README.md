@@ -1,6 +1,11 @@
 # next-route-map 🚏
 
+[![npm version](https://badge.fury.io/js/next-route-map.svg)](https://www.npmjs.com/package/next-route-map)
+[![CI](https://github.com/devxoul/next-route-map/workflows/CI/badge.svg)](https://github.com/devxoul/next-route-map/actions/workflows/ci.yml)
+
 next-route-map allows you to define a route map. It automatically generates page modules that forward original modules in build time. **Focus on domain, not foldering.**
+
+<img src="https://user-images.githubusercontent.com/931655/147760569-f030eab9-0ed1-4dbf-b548-c81985b3246a.png" alt="cover">
 
 ## At a Glance
 
