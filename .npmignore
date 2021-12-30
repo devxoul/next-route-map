@@ -1,0 +1,6 @@
+.eslintrc.js
+.github/
+.vscode/
+jest.config.js
+tests
+tsconfig.json
