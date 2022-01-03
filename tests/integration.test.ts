@@ -1,6 +1,6 @@
 import { parse } from 'node-html-parser'
 
-import { build } from './utils/build'
+import { buildPlugin } from './utils/plugin'
 import { runServer, Server } from './utils/server'
 
 jest.setTimeout(10000)
@@ -8,7 +8,7 @@ jest.setTimeout(10000)
 let server: Server
 
 beforeAll(async () => {
-  await build()
+  await buildPlugin()
   server = await runServer({
     nextDir: './tests/integration',
     healthCheckPath: '/ping',
