@@ -8,6 +8,7 @@ export type Server = {
 }
 
 export type RunServerOptions = {
+  environment: 'dev' | 'prod',
   nextDir: string,
   healthCheckHost?: string,
   healthCheckPort?: number,
@@ -18,6 +19,7 @@ export type RunServerOptions = {
 }
 
 export const runServer = ({
+  environment,
   nextDir,
   healthCheckHost = 'localhost',
   healthCheckPort = 3000,
@@ -27,7 +29,10 @@ export const runServer = ({
   verbose: isVerbose = process.argv.includes('--verbose'),
 }: RunServerOptions): Promise<Server> => {
   return new Promise(async (resolve, reject) => {
-    const server = execa('yarn', ['next', 'dev', nextDir], {
+    const command = environment == 'dev'
+      ? `yarn next dev ${nextDir}`
+      : `$SHELL -c "yarn next build ${nextDir} && yarn next start ${nextDir}"`
+    const server = execa(command, undefined, {
       shell: true,
       stdio: isVerbose ? 'inherit' : undefined,
     })
