@@ -4,7 +4,7 @@ export type BuildOptions = {
   verbose?: boolean,
 }
 
-export const buildPlugin = async (options?: BuildOptions) => {
+export const buildCLI = async (options?: BuildOptions) => {
   const isVerbose = options?.verbose ?? process.argv.includes('--verbose')
   const execaOptions: execa.Options = {
     shell: true,

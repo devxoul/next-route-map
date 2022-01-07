@@ -1,6 +1,6 @@
 import { parse } from 'node-html-parser'
 
-import { buildPlugin } from './utils/plugin'
+import { buildCLI } from './utils/build'
 import { runServer, Server } from './utils/server'
 
 const timeoutDev = 5000
@@ -9,7 +9,7 @@ const timeoutProd = 30000
 jest.setTimeout(Math.max(timeoutDev, timeoutProd))
 
 beforeAll(async () => {
-  await buildPlugin()
+  await buildCLI()
 })
 
 describe('page forwarding', () => {
