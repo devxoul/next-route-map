@@ -1,20 +1,9 @@
-const RouteMapPlugin = require('../../build').default
+const { RouteMapDevPlugin } = require('../../build')
 
 module.exports = {
   webpack(config) {
-    config.plugins.push(new RouteMapPlugin({
-      baseDir: __dirname,
-      pagesDir: './src/pages',
-      routes: {
-        '/': './src/home/HomePage.tsx',
-        '/404': './src/errors/404.tsx',
-        '/articles/[slug]': './src/articles/ArticlePage.tsx',
-        '/users/[username]': './src/users/UserPage.tsx',
-      },
-      preservePaths: [
-        '/ping.ts',
-      ],
-      logger: console,
+    config.plugins.push(new RouteMapDevPlugin({
+      config: `${__dirname}/routes.config.js`,
     }))
     return config
   }

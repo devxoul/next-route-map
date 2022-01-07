@@ -1,1 +1,1 @@
-export { default } from './plugin'
+export { RouteMapDevPlugin } from './plugin'
