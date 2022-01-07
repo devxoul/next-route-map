@@ -43,16 +43,10 @@ pages/ (auto generated)
 
 ## Getting Started
 
-Add webpack configuration to your **`next.config.js`**.
+1. Add **`routes.config.js`** file to your project. See the [Options](#options) for detail API usage.
 
-For example:
-
-```js
-const RouteMapPlugin = require('next-route-map')
-
-module.exports = {
-  webpack(config) {
-    config.plugins.push(new RouteMapPlugin({
+    ```js
+    module.exports = {
       pagesDir: './pages',
       routes: {
         '/': './src/home/HomePage.tsx',
@@ -67,28 +61,38 @@ module.exports = {
         '_document.tsx',
       ],
       logger: console,
-    }))
-    return config
-  }
-}
-```
+    }
+    ```
 
-Then the plugin will generate the proper page modules on `$ next build` or `$ next dev`.
+2. Add `next-route-map` command to your **`package.json`**
 
-* `./pages/index.ts`
-* `./pages/products/index.ts`
-* `./pages/products/[id].ts`
-* `./pages/orders/index.ts`
-* `./pages/orders/[id].ts`
-* `./pages/404.ts`
+    ```diff
+      "scripts": {
+    -   "dev": "next dev",
+    -   "build": "next build",
+    +   "dev": "next-route-map && next dev",
+    +   "build": "next-route-map && next build",
+        "start": "next start",
+        "lint": "next lint"
+      },
+    ```
 
-It is safe to add the pages directory to **`.gitignore`**.
+3. Then the plugin will generate the proper page modules on `$ next build` or `$ next dev`.
 
-```gitignore
-/pages/*
-!/pages/_app.tsx
-!/pages/_document.tsx
-```
+    * `./pages/index.ts`
+    * `./pages/products/index.ts`
+    * `./pages/products/[id].ts`
+    * `./pages/orders/index.ts`
+    * `./pages/orders/[id].ts`
+    * `./pages/404.ts`
+
+    It is safe to add the pages directory to **`.gitignore`**.
+
+    ```gitignore
+    /pages/*
+    !/pages/_app.tsx
+    !/pages/_document.tsx
+    ```
 
 ## Options
 
