@@ -9,6 +9,7 @@ export type Server = {
 
 export type RunServerOptions = {
   environment: 'dev' | 'prod',
+  routesCliPath: string,
   nextDir: string,
   healthCheckHost?: string,
   healthCheckPort?: number,
@@ -20,6 +21,7 @@ export type RunServerOptions = {
 
 export const runServer = ({
   environment,
+  routesCliPath,
   nextDir,
   healthCheckHost = 'localhost',
   healthCheckPort = 3000,
@@ -31,7 +33,7 @@ export const runServer = ({
   return new Promise(async (resolve, reject) => {
     const command = environment == 'dev'
       ? `yarn next dev ${nextDir}`
-      : `$SHELL -c "yarn next build ${nextDir} && yarn next start ${nextDir}"`
+      : `$SHELL -c "yarn node ${routesCliPath} ${nextDir}/routes.config.js && yarn next build ${nextDir} && yarn next start ${nextDir}"`
     const server = execa(command, undefined, {
       shell: true,
       stdio: isVerbose ? 'inherit' : undefined,

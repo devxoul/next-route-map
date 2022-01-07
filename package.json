@@ -3,6 +3,7 @@
   "version": "0.1.2",
   "description": "Routes for Next.js",
   "main": "build/index.js",
+  "bin": "build/cli.js",
   "repository": "https://github.com/devxoul/next-route-map",
   "author": "Suyeol Jeon <devxoul@gmail.com>",
   "license": "MIT",

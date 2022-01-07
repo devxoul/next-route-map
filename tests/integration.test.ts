@@ -3,7 +3,10 @@ import { parse } from 'node-html-parser'
 import { buildPlugin } from './utils/plugin'
 import { runServer, Server } from './utils/server'
 
-jest.setTimeout(10000)
+const timeoutDev = 5000
+const timeoutProd = 30000
+
+jest.setTimeout(Math.max(timeoutDev, timeoutProd))
 
 beforeAll(async () => {
   await buildPlugin()
@@ -16,8 +19,10 @@ describe('page forwarding', () => {
     beforeAll(async () => {
       server = await runServer({
         environment,
+        routesCliPath: './build/cli.js',
         nextDir: './tests/integration',
         healthCheckPath: '/ping',
+        waitTimout: environment === 'dev' ? timeoutDev : timeoutProd,
       })
     })
 
