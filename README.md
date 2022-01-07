@@ -7,11 +7,35 @@ next-route-map allows you to define a route map. It automatically generates page
 
 <img src="https://user-images.githubusercontent.com/931655/147760569-f030eab9-0ed1-4dbf-b548-c81985b3246a.png" alt="cover">
 
-## At a Glance
+## Background
+
+[Next.js](https://nextjs.org/) provides a consistent way to structure and organize pages. It is very intuitive and easy to use. However, when it comes to a larger application with many business domains, the file system based routing can cause several problems.
+
+First, since it is strongly coupled to the file system, a file name can only represent a piece of url path rather than what it actually does. The larger application becomes the file names should be easier to understand. For example, `DashboardPage.tsx` is much easier to understand than `pages/index.tsx`. `UserSearchPage.tsx` is better than `pages/users.tsx`.
+
+Second, `pages/` directory can only contain page modules so you have to place related modules such as components and hooks in other directory. It means that your project will have two directory trees: one starting from `pages/` and the other starting from `src/`. Same domain files are better to be in the same folder. For example, the second one is more organized that the first one.
+
+```
+pages/
+  products/
+    [id].tsx
+products/
+  components/
+    Thumbnail.tsx
+```
+
+```
+products/
+  ProductDetailPage.tsx
+  components/
+    Thumbnail.tsx
+```
+
+## At a glance
+
+With **next-route-map** you can separate the page modules from routing. It automatically generates page modules from routing file.
 
 **Before 🤔**
-
-A name of each page module represents an url path.
 
 ```
 pages/
@@ -22,11 +46,15 @@ pages/
   orders/
     index.tsx
     [id].tsx
+products/
+  components/
+    Thumbnail.tsx
+orders/
+  hooks/
+    usePlaceOrder.ts
 ```
 
 **After 😊**
-
-A name of each page module represents what exactly it is.
 
 ```
 home/
@@ -34,14 +62,40 @@ home/
 products/
   ProductListPage.tsx
   ProductDetailPage.tsx
+  components/
+    Thumbnail.tsx
 orders/
   OrderListPage.tsx
   OrderDetailPage.tsx
+  hooks/
+    usePlaceOrder.tsx
 
-pages/ (auto generated)
+(auto generated)
+pages/
+  index.tsx --> home/HomePage.tsx
+  products/
+    index.tsx --> products/ProductListPage.tsx
+    [id].tsx --> products/ProductDetailPage.tsx
+  orders/
+    index.tsx --> orders/OrderListPage.tsx
+    [id].tsx --> orders/OrderDetailPage.tsx
 ```
 
-## Getting Started
+## How it works
+
+**next-route-map** finds all page modules from the project and creates corresponding forwarding modules in the page directory. The forwarding modules look like:
+
+```ts
+export { default } from '../src/products/ProductDetailPage'
+```
+
+When the page module contains magic functions like `getStaticProps` or `getServerSideProps` it will automatically export them as well.
+
+```ts
+export { default, getServerSideProps } from '../src/products/ProductDetailPage'
+```
+
+## Getting started
 
 1. Add **`routes.config.js`** file to your project. See the [Options](#options) for detail API usage.
 
@@ -64,7 +118,7 @@ pages/ (auto generated)
     }
     ```
 
-2. Add `next-route-map` command to your **`package.json`**
+2. Add `next-route-map` command to your **`package.json`**.
 
     ```diff
       "scripts": {
@@ -77,7 +131,7 @@ pages/ (auto generated)
       },
     ```
 
-3. Then the plugin will generate the proper page modules on `$ next build` or `$ next dev`.
+3. Then the plugin will generate the proper page modules on `$ yarn build` or `$ yarn dev`.
 
     * `./pages/index.ts`
     * `./pages/products/index.ts`
