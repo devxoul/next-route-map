@@ -3,8 +3,8 @@ import { parse } from 'node-html-parser'
 import { buildCLI } from './utils/build'
 import { runServer, Server } from './utils/server'
 
-const timeoutDev = 5000
-const timeoutProd = 30000
+const timeoutDev = 10 * 1000
+const timeoutProd = 60 * 1000
 
 jest.setTimeout(Math.max(timeoutDev, timeoutProd))
 
