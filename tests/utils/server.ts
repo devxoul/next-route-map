@@ -31,9 +31,10 @@ export const runServer = ({
   verbose: isVerbose = process.argv.includes('--verbose'),
 }: RunServerOptions): Promise<Server> => {
   return new Promise(async (resolve, reject) => {
+    const routesCommand = `yarn node ${routesCliPath} ${nextDir}/routes.config.js`
     const command = environment == 'dev'
-      ? `yarn next dev ${nextDir}`
-      : `$SHELL -c "yarn node ${routesCliPath} ${nextDir}/routes.config.js && yarn next build ${nextDir} && yarn next start ${nextDir}"`
+      ? `$SHELL -c "${routesCommand} && yarn next dev ${nextDir}"`
+      : `$SHELL -c "${routesCommand} && yarn next build ${nextDir} && yarn next start ${nextDir}"`
     const server = execa(command, undefined, {
       shell: true,
       stdio: isVerbose ? 'inherit' : undefined,
