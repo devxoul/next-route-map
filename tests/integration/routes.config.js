@@ -9,6 +9,7 @@ module.exports = {
   },
   preservePaths: [
     '/ping.ts',
+    '/api',
   ],
   logger: console,
 }

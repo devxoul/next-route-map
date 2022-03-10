@@ -47,5 +47,15 @@ describe('page forwarding', () => {
       const html = parse(text)
       expect(html.rawText).toMatch(pattern)
     })
+
+    it.each([
+      ['/ping', 'pong'],
+      ['/api/greeting', 'This is a preserved path!'],
+    ])('preserves path for %s', async (path, pattern) => {
+      const response = await server.fetch(path)
+      const text = await response.text()
+      const html = parse(text)
+      expect(html.rawText).toMatch(pattern)
+    })
   })
 })

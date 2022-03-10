@@ -7,7 +7,7 @@
 /tests/**/tsconfig.json
 /tests/integration/src/pages/*
 !/tests/integration/src/pages/ping.ts
-!/tests/integration/src/pages/ping2.ts
+!/tests/integration/src/pages/api/greeting.ts
 
 # next.js
 .next/

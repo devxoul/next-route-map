@@ -66,7 +66,16 @@ export class RouteMapBuilder {
 
     this.preservePaths?.forEach(relativePath => {
       const absolutePath = path.resolve(path.join(this.pagesDir, relativePath))
-      pathsToDelete.delete(absolutePath)
+      const isDirectory = fs.lstatSync(absolutePath).isDirectory()
+      if (!isDirectory) {
+        pathsToDelete.delete(absolutePath)
+      } else {
+        pathsToDelete.forEach(p => {
+          if (p.startsWith(absolutePath)) {
+            pathsToDelete.delete(p)
+          }
+        })
+      }
     })
 
     pathsToDelete.forEach(filePath => {
