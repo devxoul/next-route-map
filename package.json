@@ -1,6 +1,6 @@
 {
   "name": "next-route-map",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Routes for Next.js",
   "main": "build/index.js",
   "bin": "build/cli.js",
